@@ -22,21 +22,20 @@ const auth = new getAuth(app);
 auth.languageCode = 'en'
 // Initialize Firebase Authentication and get a reference to the service
 const provider = new GoogleAuthProvider();
+    
+// Get the logout button element
+const logoutBtn = document.getElementById("logoutBtn");
+        logoutBtn.addEventListener("click", () => {
+                          // Get the logout button element
+                          const logoutBtn = document.getElementById("logoutBtn");
+                          logoutBtn.addEventListener("click", () => {
+                                          // Perform logout functionality
+                                          window.location.href = "/login.html";
+                                          // Sign-out successful.
+                                          console.log("User signed out");
+                                          // Redirect to the login page
+                                   window.location.href = "/login.html";
 
-const googleLogin = document.getElementById("google-login-btn");
-                    googleLogin.addEventListener("click", () => {
-                        signInWithPopup(auth, provider)
-                        .then((result) => {
-                          const credential = GoogleAuthProvider.credentialFromResult(result);
-                          const user = result.user;
-                          console.log(user);
-                          window.location.href = "../index.html";
-                    
-                        }).catch((error) => {
-                    
-                          const errorCode = error.code;
-                          const errorMessage = error.message;
-                        });
-            
+                          })
+
 });
-        

@@ -344,3 +344,10 @@ main {
 .body img {
     width: 100%;
 }
+
+.logout {
+margin-left: 20px;
+background-color: #fafafa;
+border-color: #fafafa;
+
+}
