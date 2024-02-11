@@ -1,42 +1,53 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"
+import { getAuth, createUserWithEmailAndPassword} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js'
+import { getDatabase,set,ref } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
-            apiKey: "AIzaSyCvzRPMNbpWhikWnqHT7ZO-MqaKi8IlMOs",
-            authDomain: "instagram-clone-943b1.firebaseapp.com",
-            projectId: "instagram-clone-943b1",
-            storageBucket: "instagram-clone-943b1.appspot.com",
-            messagingSenderId: "441631739911",
-            appId: "1:441631739911:web:c670cb7effdf2e934a1aa2"
+            apiKey: 'AIzaSyCvzRPMNbpWhikWnqHT7ZO-MqaKi8IlMOs',
+            authDomain: 'instagram-clone-943b1.firebaseapp.com',
+            projectId: 'instagram-clone-943b1',
+            storageBucket: 'instagram-clone-943b1.appspot.com',
+            messagingSenderId: '441631739911',
+            appId: '1:441631739911:web:c670cb7effdf2e934a1aa2'
 };
 
 
 const app = new initializeApp(firebaseConfig);
-const auth = new getAuth(app);
-auth.languageCode = 'en'
+const auth = new getAuth();
+const database = getDatabase(app);
+
+submitData.addEventListener('click', (e) => {
+
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
 
 
-const submit = document.getElementById("submit");
-submit.addEventListener("click", () => {
-    // signInWithPopup(auth, provider); // Uncomment this line if signInWithPopup is defined
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+createUserWithEmailAndPassword(auth, email, password)
+.then((userCredential) => {
 
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        // Signed up 
-        const user = userCredential.user;
-        console.log(10)
-        alert("Creating Account ...")
-        window.location.href = "../index.html"
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      })
- 
-    });
+  // Signed up 
+  const user = userCredential.user;
+  // ...user.uid
+  set(ref(database, 'users/' + user.uid), {
+    email: email,
+    password: password
+  })
+.then(() => {
+  // Data saved successfully!
+  alert('user created');
+})
+.catch((error) => {
+  // The write failed...
+  alert('user error');
+});
 
+})
+.catch((error) => {
+  const errorCode = error.code;
+  const errorMessage = error.message;
+  // ..
+  alert('error signing up');
+});
+
+});
