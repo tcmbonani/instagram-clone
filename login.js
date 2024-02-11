@@ -22,35 +22,6 @@ submitData.addEventListener('click', (e) => {
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
 
-
-createUserWithEmailAndPassword(auth, email, password)
-.then((userCredential) => {
-
-  // Signed up 
-  const user = userCredential.user;
-  // ...user.uid
-  set(ref(database, 'users/' + user.uid), {
-    email: email,
-    password: password
-  })
-.then(() => {
-  // Data saved successfully!
-  alert('user created');
-  window.location.href = "../login.html";
-})
-.catch((error) => {
-  // The write failed...
-  alert('user error');
-});
-
-})
-.catch((error) => {
-  const errorCode = error.code;
-  const errorMessage = error.message;
-  // ..
-  alert('error signing up');
-});
-
 signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
