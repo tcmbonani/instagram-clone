@@ -51,31 +51,4 @@ createUserWithEmailAndPassword(auth, email, password)
   alert('error signing up');
 });
 
-signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-    var lgDate = new Date(); 
-    update(ref(database, 'users/' + user.uid), {
-      last_login: lgDate,
-    })
-  .then(() => {
-    // Data saved successfully!
-    alert('user logged in successfully');
-    window.location.href = "../index.html";
-  })
-  .catch((error) => {
-    // The write failed...
-    alert('user error');
-  });
-
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    alert(errorMessage);
-  });
-
-
 });
