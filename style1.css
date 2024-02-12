@@ -1,7 +1,12 @@
 
 
 body {
-	background: #eee !important;	
+	background: #fff !important;	
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+
 }
 
 .wrapper {	
@@ -29,26 +34,24 @@ body {
 	  font-size: 16px;
 	  height: auto;
 	  padding: 10px;
-		@include box-sizing(border-box);
+		margin-bottom: 10px;
 
 		&:focus {
 		  z-index: 2;
 		}
 	}
 
-	input[type="text"] {
-	  margin-bottom: 5px;
-	  border-bottom-left-radius: 0;
-	  border-bottom-right-radius: 0;
+	input[type="email"] {
+	  margin-bottom: 7px;
       background-color: f5f5f5;
       align-content: center;
+      border-color: lightgray;
 	}
 
 	input[type="password"] {
 	  margin-bottom: 20px;
-	  border-top-left-radius: 0;
-	  border-top-right-radius: 0;
       align-content: center;
+      border-color: lightgray;
 	}
 }
 
@@ -70,6 +73,10 @@ button {
     color: #ffffff;
     padding-left: 25%;
     padding-right: 25%;
+    margin-bottom: 10px;
+    align-items: center;
+    margin-right: 23px;
+
 }
 
 .btn:hover {
@@ -86,6 +93,7 @@ button {
     border: none;
     border-radius: 3px;
     box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+    margin-right: 23px;
     
     color: #757575;
     font-size: 14px;
@@ -127,8 +135,9 @@ button {
     text-decoration: none;
     color: #007bff; /* Blue color */
     font-weight: bold;
-    margin-left: 40px;
     margin-bottom: 20px;
+    margin-right: 20px;
+    align-items: center;
 }
 
 a:hover {
@@ -149,4 +158,15 @@ a:hover {
   body {
     text-align: center;
     padding-top: 2rem;
+  }
+
+
+  form-signin{
+    background-position: 0px -52px; 
+    background-size: auto; 
+    width: 100px; 
+    height: 51px; 
+    background-repeat: no-repeat;
+    display: inline-block;
+    align-items: center;
   }
