@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var postData ={
               url: downloadURL,
               caption: document.getElementById("files").value, // Assuming there's an input field with id "caption"
-              captions: document.getElementById("post").value,
+              caption: document.getElementById("post").value,
               user: auth.currentUser.uid
             };
             updates['/Posts/'+postKey] = postData;
