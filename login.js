@@ -31,6 +31,7 @@ signInWithEmailAndPassword(auth, email, password)
     update(ref(database, 'users/' + user.uid), {
       last_login: lgDate,
     })
+
   .then(() => {
     // Data saved successfully!
     alert('user logged in successfully');
@@ -47,6 +48,5 @@ signInWithEmailAndPassword(auth, email, password)
     const errorMessage = error.message;
     alert(errorMessage);
   });
-
 
 });

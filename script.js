@@ -1,6 +1,7 @@
-import { getStorage, ref } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-
-
+import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js'
+import { getDatabase,set,ref,update} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
   
   // TODO: Replace the following with your app's Firebase project configuration
   const firebaseConfig = {
@@ -9,11 +10,14 @@ import { getStorage, ref } from "https://www.gstatic.com/firebasejs/10.8.0/fireb
               projectId: 'instagram-clone-943b1',
               storageBucket: 'instagram-clone-943b1.appspot.com',
               messagingSenderId: '441631739911',
-              appId: '1:441631739911:web:c670cb7effdf2e934a1aa2'
+              appId: '1:441631739911:web:c670cb7effdf2e934a1aa2',
+              databaseURL: 'https://instagram-clone-943b1-default-rtdb.firebaseio.com/'
   };
   
   
 firebase.initializeApp(firebaseConfig);
+const auth = new getAuth();
+const database = getDatabase();
 
   var files = [];
 document.getElementById("files").addEventListener("change", function(e) {
@@ -50,11 +54,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
   document.getElementById("createPostButton").addEventListener("click", function() {
     //checks if files are selected
+
+      // Get caption of the post
+      const caption = document.getElementById("post").value; // Assuming there's an input field with id "caption"
+
     if (files.length != 0) {
       //Loops through all the selected files
       for (let i = 0; i < files.length; i++) {
         //create a storage reference
         var storage = firebase.storage().ref(files[i].name);
+        var uploadTask = storage.put(files[0]);
   
         //upload file
         var upload = storage.put(files[i]);
@@ -73,20 +82,36 @@ document.addEventListener("DOMContentLoaded", function() {
           },
   
           function complete() {
+
+            var postKey = firebase.database().ref('Posts/').push().key;
+            var downloadURL = uploadTask.snapshot.downloadURL;
+            var updates = {};
+            var postData ={
+              url: downloadURL,
+              caption: document.getElementById("files").value, // Assuming there's an input field with id "caption"
+              user: auth.currentUser.uid
+            };
+            updates['/Posts/'+postKey] = postData;
+            firebase.database().ref().update(updates);
+          
             document.getElementById(
               "uploading"
             ).innerHTML += `${files[i].name} upoaded <br />`;
           }
+
         );
       }
     } else {
       alert("No file chosen");
     }
+
   });
   
   function getFileUrl(filename) {
     //create a storage reference
     var storage = firebase.storage().ref(filename);
+
+
   
     //get file url
     storage
@@ -94,11 +119,14 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(function(url) {
         console.log(url);
       })
+      
       .catch(function(error) {
         console.log("error encountered");
       });
+
   }
 
+  
 
 
 
