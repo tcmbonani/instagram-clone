@@ -21,7 +21,8 @@
 
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 
-    <script src="logout.js" defer type ="module"></script>
+    <script src="logout.js" type="module"></script>
+    <script src="script.js" type="module"></script>
   </head>
 
   <body>
@@ -68,6 +69,7 @@
                   ></a>
                 </div>
               </div>
+          
               <div class="margin-left">
                 <a class="xWeGp" href="/direct/inbox/" tabindex="0"
                   ><svg
@@ -93,6 +95,7 @@
                     height="22"
                     viewBox="0 0 48 48"
                     width="22"
+                    
                   >
                     <path
                       clip-rule="evenodd"
@@ -101,6 +104,42 @@
                     ></path></svg
                 ></a>
               </div>
+
+              <div class="margin-left" id="triggerPopup">
+                <label for="files" class="upload-button">
+                  <a href="#" id="openPopup">
+                    <svg
+                      aria-label="Activity Feed"
+                      fill="#262626"
+                      height="25"
+                      class="svg-icon" 
+                      viewBox="0 0 20 20"
+                      width="25"
+                    >
+                      <path d="M14.613,10c0,0.23-0.188,0.419-0.419,0.419H10.42v3.774c0,0.23-0.189,0.42-0.42,0.42s-0.419-0.189-0.419-0.42v-3.774H5.806c-0.23,0-0.419-0.189-0.419-0.419s0.189-0.419,0.419-0.419h3.775V5.806c0-0.23,0.189-0.419,0.419-0.419s0.42,0.189,0.42,0.419v3.775h3.774C14.425,9.581,14.613,9.77,14.613,10 M17.969,10c0,4.401-3.567,7.969-7.969,7.969c-4.402,0-7.969-3.567-7.969-7.969c0-4.402,3.567-7.969,7.969-7.969C14.401,2.031,17.969,5.598,17.969,10 M17.13,10c0-3.932-3.198-7.13-7.13-7.13S2.87,6.068,2.87,10c0,3.933,3.198,7.13,7.13,7.13S17.13,13.933,17.13,10"></path>
+                    </svg>
+                  </a>
+                </label>
+              </div>
+              
+              <!-- Overlay -->
+              <div class="overlay" id="overlay"></div>
+              
+              <!-- Section with content for pop-up -->
+              <section id="popupContent" class="popup-container">
+                Upload Files<br />
+                <input type="file" id="files" multiple /><br /><br />
+                <button id="createPostButton">Upload</button>
+                <p id="uploading"></p>
+                <progress value="0" max="0" id="progress"></progress>
+
+              </section>
+
+              
+              
+              
+
+              
               <div class="margin-left">
                 <a class="_0ZPOP kIKUG" href="/accounts/activity/"
                   ><svg
@@ -115,6 +154,9 @@
                       d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"
                     ></path></svg
                 ></a>
+
+                
+                
                 <div class="">
                   <div class="poA5q" style="margin-left: -423px"></div>
                 </div>
@@ -1062,6 +1104,8 @@
                 </div>
                 <a class="follow-btn">Follow</a>
               </div>
+
+              
               <div class="suggestion">
                 <div class="suggestion-details">
                   <div class="suggestion-pic">
