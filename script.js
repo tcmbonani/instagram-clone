@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var postData ={
               url: downloadURL,
               caption: document.getElementById("files").value, // Assuming there's an input field with id "caption"
-              caption: document.getElementById("post").value,
+              captions: document.getElementById("post").value,
               user: auth.currentUser.uid
             };
             updates['/Posts/'+postKey] = postData;
@@ -127,7 +127,50 @@ document.addEventListener("DOMContentLoaded", function() {
 
   }
 
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get the modal
+    var modal = document.getElementById("myModal");
   
 
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+  
+    // Get the SVG element for more options
+    var moreOptionsIcon = document.getElementById("More options");
+  
+    // When the user clicks the SVG icon, open the modal 
+    moreOptionsIcon.addEventListener("click", function() {
+      modal.style.display = "block";
+      renderModalContent(); // Render dynamic content
+    });
 
+  
+    // When the user clicks on <span> (x) or outside of the modal, close the modal
+    window.onclick = function(event) {
+      if (event.target == modal || event.target == span) {
+        modal.style.display = "none";
+      }
+    };
+  });
+  
+  
 
+// Function to render dynamic content in the modal
+function renderModalContent() {
+  var modalBody = document.getElementById("modalBody");
+  modalBody.innerHTML = ""; // Clear previous content
+  
+  // Example content with 7 rows and different row names
+  var rows = ["Report", "Unfollow", "Go to post", "Share to...", "Copy Link", "Embed", "Cancel"];
+  
+  // Create and append content to modal body
+  rows.forEach(function(row) {
+    var rowElement = document.createElement("p");
+    rowElement.textContent = row;
+    if (row === "Report") {
+      rowElement.classList.add("report"); // Add class "report" to the "Report" row
+    }
+    modalBody.appendChild(rowElement);
+  });
+}
