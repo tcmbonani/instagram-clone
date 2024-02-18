@@ -2,13 +2,34 @@
     .sidebar {
         display: none;
     }
+    .navbar-icons-inner{
+        display: none;
+    }
     .content-container {
         display: flex;
         justify-content: center;
     }
     .navbar-inner {
         width: 100%;
+
     }
+
+
+ .bottom-nav {
+            display: flex;
+            background-color: lightslategray;
+        }
+
+.profile-pic img {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+}
+
+footer{
+    background-color: black;
+}
+
 }
 
 @media (max-width: 640px) {
@@ -22,10 +43,18 @@
         margin: 0;
     }
     .search-bar {
-        display: none;
+        display: block;
+        width:600px;
+        margin-left: 30px;
     }
     .header {
         border: none;
         background: transparent;
+    }
+
+    .profile-pic img {
+        height: 22px;
+        width: 22px;
+        border-radius: 50%;
     }
 }
