@@ -446,27 +446,34 @@ fetchPostsFromDB()
 
  // Append the postDiv to the postsContainer
  postsContainer.appendChild(postDiv);
-    
- // Get all SVG elements for more options
- const moreOptionsIcons = document.getElementsByClassName(".mod-open");
- // Add event listener to open modal when post is clicked
- postDiv.addEventListener('click', function() {
-  var modal = document.getElementById("myModal");
-     modal.style.display = "block";
+ // Get all SVG elements for more options inside the postDiv
+const moreOptionsIcons = postDiv.getElementsByClassName("mod-open");
 
+// Add event listener to open modal when more options icon is clicked
+for (let i = 0; i < moreOptionsIcons.length; i++) {
+    moreOptionsIcons[i].addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevent event bubbling
 
-     // Get the <span> element that closes the modal
-     var span = document.querySelectorAll(".close")[0];
+        // Open the modal
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
 
-   // Close the modal when the <span> is clicked
-   span = function() {
-       modal.style.display = "none";
-   }
-     // Close the modal when user clicks outside the modal
-     window.onclick = function(event) {
-         if (event.target == modal) {
-             modal.style.display = "none";
-         }
+        // Get the <span> element that closes the modal
+        var closeBtn = document.querySelector("#myModal .close");
+
+        // Add event listener to close the modal when the close button is clicked
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+
+        // Add event listener to close the modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    });
+}
 
 
          function deletePost(postId) {
@@ -500,11 +507,11 @@ deleteOption.addEventListener('click', function(event) {
 });
 
      }
- });
-}
-// Call the function to fetch posts when the DOM content is loaded
+     // Call the function to fetch posts when the DOM content is loaded
 fetchPostsFromDatabase();
-});
+
+ });
+
 
 
 
