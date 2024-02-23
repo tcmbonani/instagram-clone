@@ -214,8 +214,8 @@ function fetchPostsFromDB() {
           // Assuming each post is an object with properties like caption, imageUrl, etc.
           userPosts.forEach(post => {
             // Extract caption, url, and user from each post
-            const { caption,url,user,postId,link} = post;
-            allPosts.push({ caption,url,user,postId,link});
+            const {caption,url,user,postId,link} = post;
+            allPosts.push({caption,url,user,postId,link});
           });
         });
 
@@ -412,7 +412,7 @@ fetchPostsFromDB()
             <span class="likes">Liked by <b>ishitaaaa.b</b> and <b>others</b></span>
             <span class="caption">
                 <span class="caption-username"><b>jayshetty</b></span>
-                <span class="caption-text">${postData.caption}</span>
+                <span class="postcaption-text">${postData.caption}</span>
             </span>
             <span class="comment">
                     <span class="caption-username"><b>akhilboddu</b></span>
@@ -490,7 +490,7 @@ deleteOption.addEventListener('click', function(event) {
     event.stopPropagation(); // Prevent event bubbling
 
     // Check if the current user is the owner of the post
-    if (postData.userId === postData.user.uid) {
+    if (postData.user === auth.currentUser.uid) {
         // Call the deletePost function with the post ID
         deletePost(postData.postId);
     } else {
