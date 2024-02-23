@@ -368,8 +368,9 @@ display: none;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
-    width: 450px;
-    height: 650px;
+    width: 350px;
+    height: 400px;
+    background-color:grey;
   }
 
   .overlay {
@@ -402,14 +403,15 @@ display: none;
   
   .modal-content {
     background-color: #fefefe;
-    margin: 85px auto;
     border: 1px solid #888;
-    width: 80%;
-    align-items: center;
-    width: 430px;
-    height: 500px;
+    width: 380px; /* Set the width to 1000px */
+    height: 480px; /* Set the height to 838px */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 25px;
-  }
+}
   
   .close {
     color: #aaa;
@@ -449,8 +451,9 @@ display: none;
 
 
 /* Style for the "Report" row */
-.modal-body .report {
-    color: red; /* Set text color to red */
+.modal-body #report {
+    color: red;
+    align-content: center;
   }
   
   .bottom-nav {
@@ -475,3 +478,25 @@ display: none;
 .bottom-nav{
     display: none;
 }
+
+
+/**popup**/
+.popupContent{
+    background-color: red;
+
+}
+
+/* Modal Styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1;
+  }
+  
+
+  
