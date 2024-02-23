@@ -103,7 +103,7 @@ main {
    padding-top: 30px;
    width: 935px;
    height: 100%;
-   display: flex;
+   display: flexbox;
    overflow: hidden;
 }
 
@@ -114,9 +114,12 @@ main {
     overflow-y: scroll;
  }
 
-.sidebar {
+ .sidebar {
     width: 293px;
     height: 100%;
+    position: absolute;
+    top: 50px; /* Adjust the top position */
+    right: 150px; /* Adjust the right position */
 }
 
 .stories {
