@@ -476,42 +476,59 @@ for (let i = 0; i < moreOptionsIcons.length; i++) {
 }
 
 
-         function deletePost(postId) {
-          // Get a reference to the post in the database
-          var postRef = firebase.database().ref('Posts/' + postId);
-          
-          // Remove the post from the database
-          postRef.remove()
-              .then(function() {
-                  console.log("Post deleted successfully");
-              })
-              .catch(function(error) {
-                  console.error("Error deleting post:", error);
-              });
-      }
-         // Get the "Delete" option
-var deleteOption = document.querySelector('.reports');
+// Get all delete options
+const deleteOptions = document.querySelectorAll('.reports');
 
-// Add event listener to delete post when "Delete" is clicked
-deleteOption.addEventListener('click', function(event) {
-    event.stopPropagation(); // Prevent event bubbling
+// Add event listener to each delete option
+deleteOptions.forEach(function(deleteOption) {
+    deleteOption.addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevent event bubbling
 
-    // Check if the current user is the owner of the post
-    if (postData.user === auth.currentUser.uid) {
-        // Call the deletePost function with the post ID
-        deletePost(postData.postId);
-    } else {
-        // Handle unauthorized deletion (optional)
-        console.log("You are not authorized to delete this post.");
-    }
+        // Get the post ID associated with the clicked delete option
+        const postId = this.closest('.post').dataset.id;
+
+        // Get the user ID associated with the clicked delete option
+        const userId = this.closest('.post').dataset.user;
+        
+        // Log the userId for debugging
+        console.log("User ID:", postData.user);
+        console.log("Post ID:", postData.postId);
+        console.log(postId)
+        console.log(auth.currentUser.uid)
+        console.log(postData.user)
+
+        // Check if the current user is authorized to delete the post
+        if (postData.user === auth.currentUser.uid && postData.postId === postId) {
+            // Call the deletePost function with the postId of the clicked post
+            deletePost(postId);
+        } else {
+            // Handle unauthorized deletion
+            console.log("You are not authorized to delete this post.");
+        }
+    });
 });
+
+
+
+
+// Function to delete a specific post from the database
+function deletePost(postId) {
+    // Get a reference to the post in the database
+    var postRef = firebase.database().ref('Posts/' + postId);
+    
+    // Remove the post from the database
+    postRef.remove()
+        .then(function() {
+            console.log("Post deleted successfully");
+        })
+        .catch(function(error) {
+            console.error("Error deleting post:", error);
+        });
+}
+
 
      }
      // Call the function to fetch posts when the DOM content is loaded
 fetchPostsFromDatabase();
 
  });
-
-
-
-
