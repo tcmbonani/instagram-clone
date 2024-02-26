@@ -498,9 +498,9 @@ deleteOptions.forEach(function(deleteOption) {
         console.log(postData.user)
 
         // Check if the current user is authorized to delete the post
-        if (postData.user === auth.currentUser.uid && postData.postId === postId) {
+        if (postData.user === auth.currentUser.uid && postData.postId === postData.postId) {
             // Call the deletePost function with the postId of the clicked post
-            deletePost(postId);
+            deletePost(postData.postId);
         } else {
             // Handle unauthorized deletion
             console.log("You are not authorized to delete this post.");
@@ -514,12 +514,13 @@ deleteOptions.forEach(function(deleteOption) {
 // Function to delete a specific post from the database
 function deletePost(postId) {
     // Get a reference to the post in the database
-    var postRef = firebase.database().ref('Posts/' + postId);
+    var postRef = firebase.database().ref('Posts/' + postId + postData.user);
     
     // Remove the post from the database
     postRef.remove()
         .then(function() {
             console.log("Post deleted successfully");
+
         })
         .catch(function(error) {
             console.error("Error deleting post:", error);

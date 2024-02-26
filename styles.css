@@ -117,9 +117,9 @@ main {
  .sidebar {
     width: 293px;
     height: 100%;
-    position: absolute;
+    position:fixed;
     top: 50px; /* Adjust the top position */
-    right: 150px; /* Adjust the right position */
+    right:300px; /* Adjust the right position */
 }
 
 .stories {
