@@ -559,16 +559,3 @@ profilePic.addEventListener('click', function() {
         }
     });
 });
-
-// Logout button functionality
-const logoutBtn = document.getElementById("logoutBtn");
-logoutBtn.addEventListener('click', function() {
-    // Perform logout action, e.g., redirect to logout endpoint or clear authentication state
-    // For example, in case of Firebase Authentication:
-    firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-        // Redirect to login page or perform other actions as needed.
-    }).catch(function(error) {
-        // An error happened.
-    });
-});
