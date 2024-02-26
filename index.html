@@ -57,9 +57,22 @@
 </div>
 
 
-  <div class="profile-pic">
+  <div class="profile-pic"  id="mod-pic">
     <img src="assets/akhil.png" alt="imharjotsingh's profile picture" draggable="false" data-testid="user-avatar">
-  </div>
+
+<!-- Modal for profile page -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <img id="profile-pic-modal" src="assets/akhil.png" alt="Profile Picture">
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </div>
+</div>
+</div>
 
 
   </footer>

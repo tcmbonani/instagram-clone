@@ -447,7 +447,7 @@ fetchPostsFromDB()
  // Append the postDiv to the postsContainer
  postsContainer.appendChild(postDiv);
  // Get all SVG elements for more options inside the postDiv
-const moreOptionsIcons = postDiv.getElementsByClassName("mod-open");
+const moreOptionsIcons = postDiv.querySelectorAll(".mod-open");
 
 // Add event listener to open modal when more options icon is clicked
 for (let i = 0; i < moreOptionsIcons.length; i++) {
@@ -521,6 +521,7 @@ function deletePost(postId) {
         .then(function() {
             console.log("Post deleted successfully");
 
+            location.reload();
         })
         .catch(function(error) {
             console.error("Error deleting post:", error);
@@ -533,3 +534,41 @@ function deletePost(postId) {
 fetchPostsFromDatabase();
 
  });
+
+ // Get the profile picture element
+const profilePic = document.querySelector(".profile-pic");
+
+// Add event listener to open profile modal
+profilePic.addEventListener('click', function() {
+    // Open the profile modal
+    var profileModal = document.getElementById("profileModal");
+    profileModal.style.display = "block";
+
+    // Get the <span> element that closes the profile modal
+    var closeBtn = document.querySelector("#profileModal .close");
+
+    // Add event listener to close the profile modal when the close button is clicked
+    closeBtn.addEventListener('click', function() {
+        profileModal.style.display = "none";
+    });
+
+    // Add event listener to close the profile modal when clicking outside of it
+    window.addEventListener('click', function(event) {
+        if (event.target === profileModal) {
+            profileModal.style.display = "none";
+        }
+    });
+});
+
+// Logout button functionality
+const logoutBtn = document.getElementById("logoutBtn");
+logoutBtn.addEventListener('click', function() {
+    // Perform logout action, e.g., redirect to logout endpoint or clear authentication state
+    // For example, in case of Firebase Authentication:
+    firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+        // Redirect to login page or perform other actions as needed.
+    }).catch(function(error) {
+        // An error happened.
+    });
+});
