@@ -323,7 +323,9 @@ fetchPostsFromDB()
         var postDiv = document.createElement('div');
         postDiv.className = 'post';
 
-    
+    // Create unique modal ID
+const modalId = `myModal-${postData.postId}`;
+
         postDiv.innerHTML = `
         <div class="post" data-id="${postData.postId}">
         <div class="header">
@@ -361,39 +363,39 @@ fetchPostsFromDB()
         </div>
 
         <!-- Modal -->
-        <div id="myModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                </div>
-                <div class="modal-body" id="modalBody">
-                    <!-- Edit option -->
-                    <p class="report" id="editOption">Edit</p>
-                    <!-- Edit form -->
-                    <div id="editFormSection" style="display: none;">
-                        <h2>Edit Post</h2>
-                        <form id="editForm">
-                            <label for="post">Edit caption:</label><br>
-                            <input type="text" id="post" name="post" placeholder="Enter caption"><br><br>
-                            <input type="submit" value="Submit">
-                        </form>
-                    </div>
-                    <!-- Other options -->
-                    <div id="otherOptionsSection">
-                        <p class="reports">Delete</p>
-                        <p class="report">Report</p>
-                        <p>Unfollow</p>
-                        <p>Go to post</p>
-                        <p>Share to...</p>
-                        <p>Copy Link</p>
-                        <p>Embed</p>
-                        <p>Cancel</p>
-                    </div>
-                </div>
-            </div>
+        <div id="${modalId}" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
         </div>
-        
+        <div class="modal-body" id="modalBody">
+            <!-- Edit option -->
+            <p id="editOption">Edit</p>
+            <!-- Edit form -->
+            <div id="editFormSection" style="display: none;">
+                <h2>Edit Post</h2>
+                <form id="editForm">
+                    <label for="post">Edit caption:</label><br>
+                    <input type="text" id="post" name="post" placeholder="Enter caption"><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <!-- Other options -->
+            <div id="otherOptionsSection">
+                <p class="reports" data-id="${postData.postId}">Delete</p>
+                <p class="report">Report</p>
+                <p>Unfollow</p>
+                <p>Go to post</p>
+                <p>Share to...</p>
+                <p>Copy Link</p>
+                <p>Embed</p>
+                <p>Cancel</p>
+</div>
+</div>
+</div>
+
+</div>
         
 
         <div class="body">
@@ -440,73 +442,69 @@ fetchPostsFromDB()
       <button id="createPostButton">Upload</button>
       <p id="uploading"></p>
       <progress value="0" max="0" id="progress"></progress>
-      <input type="text" id="post" placeholder="caption">
+      <input type="text" id="post" class="post" placeholder="caption">
     </section>
      `;
 
  // Append the postDiv to the postsContainer
  postsContainer.appendChild(postDiv);
- // Get all SVG elements for more options inside the postDiv
-const moreOptionsIcons = postDiv.querySelectorAll(".mod-open");
 
-// Add event listener to open modal when more options icon is clicked
+ // Select more options icons within the postDiv
+const moreOptionsIcons = postDiv.querySelectorAll(".options .mod-open");
+ // Add event listener to open modal when more options icon is clicked
 for (let i = 0; i < moreOptionsIcons.length; i++) {
-    moreOptionsIcons[i].addEventListener('click', function(event) {
-        event.stopPropagation(); // Prevent event bubbling
+  moreOptionsIcons[i].addEventListener('click', function(event) {
+      event.stopPropagation(); // Prevent event bubbling
 
-        // Open the modal
-        var modal = document.getElementById("myModal");
-        modal.style.display = "block";
+      // Generate unique modal ID based on post ID
+      const postId = postData.postId;
+      const modalId = `myModal-${postId}`;
+      
+      // Open the modal
+      var modal = document.getElementById(modalId);
+      modal.style.display = "block";
 
-        // Get the <span> element that closes the modal
-        var closeBtn = document.querySelector("#myModal .close");
+      // Get the <span> element that closes the modal
+      var closeBtn = modal.querySelector(".close");
 
-        // Add event listener to close the modal when the close button is clicked
-        closeBtn.addEventListener('click', function() {
-            modal.style.display = "none";
-        });
+      // Add event listener to close the modal when the close button is clicked
+      closeBtn.addEventListener('click', function() {
+          modal.style.display = "none";
+      });
 
-        // Add event listener to close the modal when clicking outside of it
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-    });
+      // Add event listener to close the modal when clicking outside of it
+      window.addEventListener('click', function(event) {
+          if (event.target === modal) {
+              modal.style.display = "none";
+          }
+      });
+  });
 }
 
 
-// Get all delete options
-const deleteOptions = document.querySelectorAll('.reports');
-
-// Add event listener to each delete option
-deleteOptions.forEach(function(deleteOption) {
-    deleteOption.addEventListener('click', function(event) {
-        event.stopPropagation(); // Prevent event bubbling
-
-        // Get the post ID associated with the clicked delete option
-        const postId = this.closest('.post').dataset.id;
-
-        // Get the user ID associated with the clicked delete option
-        const userId = this.closest('.post').dataset.user;
-        
-        // Log the userId for debugging
-        console.log("User ID:", postData.user);
-        console.log("Post ID:", postData.postId);
-        console.log(postId)
-        console.log(auth.currentUser.uid)
-        console.log(postData.user)
-
-        // Check if the current user is authorized to delete the post
-        if (postData.user === auth.currentUser.uid && postData.postId === postData.postId) {
-            // Call the deletePost function with the postId of the clicked post
-            deletePost(postData.postId);
-        } else {
-            // Handle unauthorized deletion
-            console.log("You are not authorized to delete this post.");
-        }
-    });
+// Add event listener to all delete buttons
+document.querySelectorAll('.reports').forEach(button => {
+  button.addEventListener('click', function() {
+      // Find the closest parent div with class "post"
+      const postDiv = this.closest('.post');
+      
+      // Get the data-id attribute value of the post
+      const postId = postDiv.dataset.id;
+      
+      console.log(postId)
+      console.log(auth.currentUser.uid)
+      // Check if the authenticated user ID matches the data-id attribute value
+      if (postId === auth.currentUser.uid) {
+          // Perform the delete operation on the found div
+          postDiv.remove(); // Or perform any delete operation you need
+          console.log("Post deleted");
+      } else {
+          console.log("You are not authorized to delete this post.");
+      }
+  });
 });
+
+
 
 
 
@@ -514,7 +512,7 @@ deleteOptions.forEach(function(deleteOption) {
 // Function to delete a specific post from the database
 function deletePost(postId) {
     // Get a reference to the post in the database
-    var postRef = firebase.database().ref('Posts/' + postId + postData.user);
+    var postRef = firebase.database().ref('Posts/' + postId);
     
     // Remove the post from the database
     postRef.remove()
@@ -527,6 +525,7 @@ function deletePost(postId) {
             console.error("Error deleting post:", error);
         });
 }
+
 
 
      }
@@ -559,3 +558,4 @@ profilePic.addEventListener('click', function() {
         }
     });
 });
+

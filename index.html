@@ -68,10 +68,35 @@
         </div>
         <div class="modal-body">
             <img id="profile-pic-modal" src="assets/akhil.png" alt="Profile Picture">
+
+            <div class="logoutbutton">
+              <button name="logoutBtn" id="logoutbutton" type="submit" >Logout</button>
+    
+            </div>
         </div>
     </div>
 </div>
 </div>
+
+<script>
+  // Get the logout button element
+  var logoutbutton = document.getElementById("logoutbutton");
+
+  // Add event listener to the logout button
+  logoutbutton.addEventListener("click", () => {
+      // Perform logout functionality (if needed)
+      // For example: you might want to sign out the user from a session
+      
+      // Redirect to the login page
+      window.location.href = "/login.html";
+
+      // Log sign-out successful message
+      console.log("User signed out");
+  });
+</script>
+
+
+
 
 
   </footer>
@@ -392,31 +417,6 @@
                   </div>
                 </div>
               </div>
-
-<!-- Modal -->
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-    </div>
-    <div class="modal-body" id="modalBody">
-
-      <p id="reports" class="triggerPopup">Edit</p>
-      <p class="report">Delete</p>
-      <p class="report">Report</p>
-      <p>Unfollow</p>
-      <p>Go to post</p>
-      <p>Share to...</p>
-      <p>Copy Link</p>
-      <p>Embed</p>
-      <p>Cancel</p>
-    </div>
-  </div>
-</div>
-
-
-
-
       
                 <div class="body">
                   <img
@@ -1176,6 +1176,7 @@
               </div>
             </div>
           </div>
+          
           <div class="sidebar">
             <div class="profile-details">
               <div class="profile-details-pic">
@@ -1283,11 +1284,13 @@
                         <button id="createPostButton">Upload</button>
                         <p id="uploading"></p>
                         <progress value="0" max="0" id="progress"></progress>
-                        <input type="text" id="post" placeholder="caption">
+                        <input type="text"  placeholder="caption">
                       </section>
 
       </main> 
     </div>
+
+    
   </body>
 </html>
 

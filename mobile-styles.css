@@ -62,10 +62,6 @@ footer{
         margin-left: 25px;
 }
 
-#logoutBtn{
-    display: block; 
-}
-
 }
 
 @media (max-width: 1280px){
