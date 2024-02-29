@@ -480,30 +480,32 @@ for (let i = 0; i < moreOptionsIcons.length; i++) {
   });
 }
 
-
-
 // Get all delete options
 const deleteOptions = document.querySelectorAll('.reports');
 
-// Add event listener to each delete option
+// Loop through each delete option
 deleteOptions.forEach(function(deleteOption) {
-    deleteOption.addEventListener('click', function(event) {
-        event.stopPropagation(); // Prevent event bubbling
+    // Get the post ID associated with the delete option
+    const postId = deleteOption.dataset.id;
 
-        // Get the post ID associated with the clicked delete option
-        const postId = this.closest('.post').dataset.id;
+    // Check if the current user is authorized to delete the post
+    if (auth.currentUser && postData.user === auth.currentUser.uid) {
+        // Show the delete option if the post belongs to the current user
+        deleteOption.style.display = 'block';
 
-        // Check if the current user is authorized to delete the post
-        if (postData.user === auth.currentUser.uid ) {
-          
+        // Add event listener to the delete option
+        deleteOption.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent event bubbling
+
             // Call the deletePost function with the postId of the clicked post
             deletePost(postId);
-        } else {
-            // Handle unauthorized deletion
-            console.log("You are not authorized to delete this post.");
-        }
-    });
+        });
+    } else {
+        // Hide the delete option if the post does not belong to the current user
+        deleteOption.style.display = 'none';
+    }
 });
+
 
 
 
