@@ -489,7 +489,7 @@ deleteOptions.forEach(function(deleteOption) {
     const postId = deleteOption.dataset.id;
 
     // Check if the current user is authorized to delete the post
-    if (auth.currentUser && postData.user === auth.currentUser.uid) {
+    if (postData.user  === auth.currentUser.uid && postId === postData.postId) {
         // Show the delete option if the post belongs to the current user
         deleteOption.style.display = 'block';
 
