@@ -67,8 +67,15 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("createPostButton").addEventListener("click", function() {
     //checks if files are selected
 
-      // Get caption of the post
-      const caption = document.getElementById("post").value; // Assuming there's an input field with id "caption"
+    const captions = document.querySelectorAll(".caption-input");
+    let captionsArray = [];
+    captions.forEach(caption => {
+        captionsArray.push(caption.value);
+    });
+
+    
+   
+    
 
     if (files.length != 0) {
       //Loops through all the selected files
@@ -101,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var postData ={
               url: downloadURL,
               link: document.getElementById("files").value, // Assuming there's an input field with id "caption"
-              caption: document.getElementById("post").value,
+              captions: captionsArray,
               user: auth.currentUser.uid,
               postId: postKey
             };
@@ -441,7 +448,7 @@ fetchPostsFromDB()
       <button id="createPostButton">Upload</button>
       <p id="uploading"></p>
       <progress value="0" max="0" id="progress"></progress>
-      <input type="text" id="post" placeholder="caption">
+      <input type="text" id="post" class="caption-input" placeholder="caption" value="${postData.caption}">
     </section>
 
     <!-- Edit form -->
@@ -543,6 +550,7 @@ const deleteOptions = document.querySelectorAll('.reports');
 deleteOptions.forEach(function(deleteOption) {
   const postId = deleteOption.dataset.id;
 
+
   console.log("Current user UID:", auth.currentUser.uid);
   console.log("Post user UID:", postData.user);
   console.log("Post ID:", postId);
@@ -552,7 +560,7 @@ deleteOptions.forEach(function(deleteOption) {
       deleteOption.addEventListener('click', function(event) {
           event.stopPropagation();
           deletePost(postId);
-      });
+      })
   } else {
       deleteOption.style.display = 'none';
   }
