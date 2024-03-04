@@ -443,10 +443,65 @@ fetchPostsFromDB()
       <progress value="0" max="0" id="progress"></progress>
       <input type="text" id="post" placeholder="caption">
     </section>
+
+    <!-- Edit form -->
+<div id="editFormSection" style="display: none;">
+    <h2>Edit Post</h2>
+    <form id="editForm">
+        <label for="editPost">Edit caption:</label><br>
+        <input type="text" id="editPost" name="editPost" value="${postData.caption}"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
      `;
 
  // Append the postDiv to the postsContainer
  postsContainer.appendChild(postDiv);
+
+// Attach event listener to edit option
+const editOption = postDiv.querySelector('#editOption');
+const editFormSection = postDiv.querySelector('#editFormSection');
+editOption.addEventListener('click', function() {
+    editFormSection.style.display = 'block';
+});
+
+// Check if the current user is the owner of the post
+if (postData.user === auth.currentUser.uid) {
+    // Show edit option
+    editOption.style.display = 'block';
+} else {
+    // Hide edit option
+    editOption.style.display = 'none';
+}
+
+// Populate edit form with current caption
+const editCaptionInput = postDiv.querySelector('#post');
+editCaptionInput.value = postData.caption;
+
+// Attach event listener to edit form
+const editForm = postDiv.querySelector('#editForm');
+editForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const editedCaption = editForm.post.value;
+    
+    // Get reference to the post in the database
+    const postRef = firebase.database().ref('Posts/' + postData.postId);
+    
+    // Update the caption in the database
+    postRef.update({
+        caption: editedCaption
+    })
+    .then(function() {
+        console.log("Caption updated successfully");
+        // After updating the post, you may want to hide the edit form
+        editFormSection.style.display = 'none';
+    })
+    .catch(function(error) {
+        console.error("Error updating caption:", error);
+    });
+});
+
+
  // Get all SVG elements for more options inside the postDiv
 const moreOptionsIcons = postDiv.querySelectorAll(".mod-open");
 
@@ -480,34 +535,28 @@ for (let i = 0; i < moreOptionsIcons.length; i++) {
   });
 }
 
+
+
 // Get all delete options
 const deleteOptions = document.querySelectorAll('.reports');
 
-// Loop through each delete option
 deleteOptions.forEach(function(deleteOption) {
-    // Get the post ID associated with the delete option
-    const postId = deleteOption.dataset.id;
+  const postId = deleteOption.dataset.id;
 
-    // Check if the current user is authorized to delete the post
-    if (postData.user  === auth.currentUser.uid && postId === postData.postId) {
-        // Show the delete option if the post belongs to the current user
-        deleteOption.style.display = 'block';
+  console.log("Current user UID:", auth.currentUser.uid);
+  console.log("Post user UID:", postData.user);
+  console.log("Post ID:", postId);
 
-        // Add event listener to the delete option
-        deleteOption.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent event bubbling
-
-            // Call the deletePost function with the postId of the clicked post
-            deletePost(postId);
-        });
-    } else {
-        // Hide the delete option if the post does not belong to the current user
-        deleteOption.style.display = 'none';
-    }
+  if (postData.user == auth.currentUser.uid) {
+      deleteOption.style.display = 'block';
+      deleteOption.addEventListener('click', function(event) {
+          event.stopPropagation();
+          deletePost(postId);
+      });
+  } else {
+      deleteOption.style.display = 'none';
+  }
 });
-
-
-
 
 
 // Function to delete a specific post from the database
