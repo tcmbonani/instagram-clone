@@ -470,7 +470,7 @@ const editOption = postDiv.querySelector('#editOption');
 const editFormSection = postDiv.querySelector('#editFormSection');
 editOption.addEventListener('click', function() {
     editFormSection.style.display = 'block';
-});
+})
 
 // Check if the current user is the owner of the post
 if (postData.user === auth.currentUser.uid) {
