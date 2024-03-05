@@ -465,23 +465,21 @@ fetchPostsFromDB()
  // Append the postDiv to the postsContainer
  postsContainer.appendChild(postDiv);
 
-
 // Attach event listener to edit option
 const editOption = postDiv.querySelector('#editOption');
 const editFormSection = postDiv.querySelector('#editFormSection');
 editOption.addEventListener('click', function() {
     editFormSection.style.display = 'block';
+});
 
-    
 // Check if the current user is the owner of the post
 if (postData.user === auth.currentUser.uid) {
-  // Show edit option
-  editOption.style.display = 'block';
+    // Show edit option
+    editOption.style.display = 'block';
 } else {
-  // Hide edit option
-  editOption.style.display = 'none';
+    // Hide edit option
+    editOption.style.display = 'none';
 }
-});
 
 // Populate edit form with current caption
 const editCaptionInput = postDiv.querySelector('#post');
@@ -552,11 +550,10 @@ const deleteOptions = document.querySelectorAll('.reports');
 deleteOptions.forEach(function(deleteOption) {
   const postId = deleteOption.dataset.id;
 
+
   console.log("Current user UID:", auth.currentUser.uid);
   console.log("Post user UID:", postData.user);
   console.log("Post ID:", postId);
-
-
 
   if (postData.user == auth.currentUser.uid) {
       deleteOption.style.display = 'block';
