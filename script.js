@@ -465,12 +465,23 @@ fetchPostsFromDB()
  // Append the postDiv to the postsContainer
  postsContainer.appendChild(postDiv);
 
+
 // Attach event listener to edit option
 const editOption = postDiv.querySelector('#editOption');
 const editFormSection = postDiv.querySelector('#editFormSection');
 editOption.addEventListener('click', function() {
     editFormSection.style.display = 'block';
 
+var user = auth.currentUser.uid;
+    
+// Check if the current user is the owner of the post
+if (postData.user === user) {
+  // Show edit option
+  editOption.style.display = 'block';
+} else {
+  // Hide edit option
+  editOption.style.display = 'none';
+}
 });
 
 // Populate edit form with current caption
