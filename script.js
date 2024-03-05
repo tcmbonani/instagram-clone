@@ -557,9 +557,9 @@ deleteOptions.forEach(function(deleteOption) {
   console.log("Post user UID:", postData.user);
   console.log("Post ID:", postId);
 
-  var user = auth.currentUser.uid;
 
-  if (postData.user == user) {
+
+  if (postData.user == usergit ) {
       deleteOption.style.display = 'block';
       deleteOption.addEventListener('click', function(event) {
           event.stopPropagation();
