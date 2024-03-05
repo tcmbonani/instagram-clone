@@ -549,6 +549,7 @@ for (let i = 0; i < moreOptionsIcons.length; i++) {
 
 // Get all delete options
 const deleteOptions = document.querySelectorAll('.reports');
+var user = auth.currentUser.uid;
 
 deleteOptions.forEach(function(deleteOption) {
   const postId = deleteOption.dataset.id;
@@ -559,7 +560,7 @@ deleteOptions.forEach(function(deleteOption) {
 
 
 
-  if (postData.user == usergit ) {
+  if (postData.user == user) {
       deleteOption.style.display = 'block';
       deleteOption.addEventListener('click', function(event) {
           event.stopPropagation();
