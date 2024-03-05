@@ -472,21 +472,15 @@ editOption.addEventListener('click', function() {
     editFormSection.style.display = 'block';
 })
 
-if (auth.currentUser) {
-  // Access the UID of the authenticated user
-  const uid = auth.currentUser.uid;
-  
-  // Now you can use the UID as needed
-  console.log(uid);
-} else if (postData.user === auth.currentUser.uid) {
-   // Show edit option
-   editOption.style.display = 'block';
+// Check if the current user is the owner of the post
+if (postData.user === auth.currentUser.uid) {
+    // Show edit option
+    editOption.style.display = 'block';
+    console.log(auth.currentUser.uid)
+} else {
+    // Hide edit option
+    editOption.style.display = 'none';
 }
-else {
-  // Hide edit option
-  editOption.style.display = 'none';
-}
-
 
 // Populate edit form with current caption
 const editCaptionInput = postDiv.querySelector('#post');
