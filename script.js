@@ -550,7 +550,6 @@ const deleteOptions = document.querySelectorAll('.reports');
 deleteOptions.forEach(function(deleteOption) {
   const postId = deleteOption.dataset.id;
 
-
   console.log("Current user UID:", auth.currentUser.uid);
   console.log("Post user UID:", postData.user);
   console.log("Post ID:", postId);
