@@ -472,10 +472,9 @@ const editFormSection = postDiv.querySelector('#editFormSection');
 editOption.addEventListener('click', function() {
     editFormSection.style.display = 'block';
 
-var user = auth.currentUser.uid;
     
 // Check if the current user is the owner of the post
-if (postData.user === user) {
+if (postData.user === auth.currentUser.uid) {
   // Show edit option
   editOption.style.display = 'block';
 } else {
@@ -549,18 +548,17 @@ for (let i = 0; i < moreOptionsIcons.length; i++) {
 
 // Get all delete options
 const deleteOptions = document.querySelectorAll('.reports');
-var user = auth.currentUser.uid;
 
 deleteOptions.forEach(function(deleteOption) {
   const postId = deleteOption.dataset.id;
 
-  console.log("Current user UID:", user);
+  console.log("Current user UID:", auth.currentUser.uid);
   console.log("Post user UID:", postData.user);
   console.log("Post ID:", postId);
 
 
 
-  if (postData.user == user) {
+  if (postData.user == auth.currentUser.uid) {
       deleteOption.style.display = 'block';
       deleteOption.addEventListener('click', function(event) {
           event.stopPropagation();
