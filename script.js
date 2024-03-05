@@ -553,13 +553,13 @@ const deleteOptions = document.querySelectorAll('.reports');
 deleteOptions.forEach(function(deleteOption) {
   const postId = deleteOption.dataset.id;
 
-  var user = auth.currentUser.uid;
-
   console.log("Current user UID:", user);
   console.log("Post user UID:", postData.user);
   console.log("Post ID:", postId);
 
-  if (postData.user == auth.currentUser.uid) {
+  var user = auth.currentUser.uid;
+
+  if (postData.user == user) {
       deleteOption.style.display = 'block';
       deleteOption.addEventListener('click', function(event) {
           event.stopPropagation();
