@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const captions = document.querySelectorAll(".caption-input");
     let captionsArray = [];
     captions.forEach(caption => {
-        captionsArray.push(value);
+        captionsArray.push(caption.value);
     });
 
     
@@ -470,16 +470,8 @@ const editOption = postDiv.querySelector('#editOption');
 const editFormSection = postDiv.querySelector('#editFormSection');
 editOption.addEventListener('click', function() {
     editFormSection.style.display = 'block';
-});
 
-// Check if the current user is the owner of the post
-if (postData.user === auth.currentUser.uid) {
-    // Show edit option
-    editOption.style.display = 'block';
-} else {
-    // Hide edit option
-    editOption.style.display = 'none';
-}
+});
 
 // Populate edit form with current caption
 const editCaptionInput = postDiv.querySelector('#post');
