@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const captions = document.querySelectorAll(".caption-input");
     let captionsArray = [];
     captions.forEach(caption => {
-        captionsArray.push(caption.value);
+        captionsArray.push(value);
     });
 
     
@@ -448,7 +448,7 @@ fetchPostsFromDB()
       <button id="createPostButton">Upload</button>
       <p id="uploading"></p>
       <progress value="0" max="0" id="progress"></progress>
-      <input type="text" id="post" class="caption-input" placeholder="caption" value="${postData.caption}">
+      <input type="text" id="post" class="caption-input" placeholder="caption">
     </section>
 
     <!-- Edit form -->
